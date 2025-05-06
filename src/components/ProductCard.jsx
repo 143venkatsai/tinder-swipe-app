@@ -1,6 +1,7 @@
-// components/ProductCard.js
 import React, { useState } from "react";
 import TinderCard from "react-tinder-card";
+import { FcLike } from "react-icons/fc";
+import { FcLikePlaceholder } from "react-icons/fc";
 
 const ProductCard = ({ productDetails }) => {
   const {
@@ -23,6 +24,14 @@ const ProductCard = ({ productDetails }) => {
       setLiked(false);
     } else if (direction === "up") {
       setInCart(true);
+      const existingCart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      const isAlreadyInCart = existingCart.some((item) => item.id === id);
+      if (!isAlreadyInCart) {
+        localStorage.setItem(
+          "cartItems",
+          JSON.stringify([...existingCart, productDetails])
+        );
+      }
     }
   };
 
@@ -46,11 +55,16 @@ const ProductCard = ({ productDetails }) => {
               </p>
             </div>
 
-            {/* Feedback */}
             {liked && (
-              <p className="text-pink-600 pt-2 font-medium">Liked ❤️</p>
+              <p className="text-pink-600 pt-2 font-medium">
+                <FcLike />
+              </p>
             )}
-            {!liked && <p className="text-gray-500 pt-2">Not Liked</p>}
+            {!liked && (
+              <p className="text-gray-500 pt-2">
+                <FcLikePlaceholder />
+              </p>
+            )}
             {inCart && (
               <p className="text-blue-600 font-medium">Added to Cart 🛒</p>
             )}
