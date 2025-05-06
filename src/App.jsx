@@ -15,6 +15,7 @@ const App = () => {
         />
         <FaCartShopping className="text-2xl" />
       </header>
+      <h1 className="text-xl text-center">Tinder Swipe</h1>
       <div className="pt-20 mx-5 mb-10">
         <ul className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {products.map((eachProduct) => (
